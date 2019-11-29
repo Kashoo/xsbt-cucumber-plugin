@@ -38,6 +38,13 @@ object Build extends Build {
                Seq(
                  scalaVersion := "2.10.4",
                  crossScalaVersions := Seq.empty,
+                 publishM2 := {
+                   publishM2.value
+
+                   val d = file(sys.env("HOME")) / s".m2/repository/com/github/kashoo/sbt-release_${scalaBinaryVersion.value}_${sbtBinaryVersion.value}"
+                   d.renameTo(file(sys.env("HOME")) / ".m2/repository/com/github/kashoo/sbt-release")
+                 },
+                 publishMavenStyle := true,
                  sbtPlugin := true))
 
   lazy val integrationProject = Project ("sbt-cucumber-integration", file ("integration"),
